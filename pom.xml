@@ -34,6 +34,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-boot-starter</artifactId>
+            <version>3.0.0-M2</version>
+        </dependency>
      
      
         <dependency>
@@ -52,6 +57,34 @@
             <artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
             <version>1.0.0.RELEASE</version>
         </dependency>-->
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>       
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <version>3.0.0-M2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-google-storage</artifactId>
+            <!-- use the same version as your Camel core version -->
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-atmosphere-websocket-starter</artifactId>
+            <version>3.0.0</version>
+            <!-- use the same version as your Camel core version -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-script-starter</artifactId>
+            <version>3.0.0-M2</version>
+            <!-- use the same version as your Camel core version -->
+        </dependency>
   
     </dependencies>
     <build>
