@@ -39,6 +39,11 @@
             <artifactId>camel-spring-boot-starter</artifactId>
             <version>3.0.0-M2</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-function-adapter-gcp</artifactId>
+            <version>3.0.4.RELEASE</version>
+        </dependency>
      
      
         <dependency>
@@ -131,6 +136,20 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>target/deploy</outputDirectory>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.cloud</groupId>
+                        <artifactId>spring-cloud-function-adapter-gcp</artifactId>
+                        <version>3.0.4.RELEASE</version>
+                    </dependency>
+                </dependencies>
             </plugin>  
         </plugins>
         <finalName>${project.name}</finalName>
