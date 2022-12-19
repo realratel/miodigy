@@ -34,12 +34,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
-        <dependency>
+        <!--        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-boot-starter</artifactId>
             <version>3.0.0-M2</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-function-adapter-gcp</artifactId>
             <version>3.0.4.RELEASE</version>
@@ -50,7 +50,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-gcp-starter</artifactId>
             <version>1.2.8.RELEASE</version>
-        </dependency>
+        </dependency>-->
        
         <!--        <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -63,52 +63,48 @@
             <version>1.0.0.RELEASE</version>
         </dependency>-->
         
-        <dependency>
+        <!--        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>       
-        </dependency>
-        <dependency>
+        </dependency>-->
+        
+        <!--        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
             <version>3.0.0-M2</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-google-storage</artifactId>
-            <!-- use the same version as your Camel core version -->
+             use the same version as your Camel core version 
             <version>3.9.0</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--        <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-atmosphere-websocket-starter</artifactId>
             <version>3.0.0</version>
-            <!-- use the same version as your Camel core version -->
-        </dependency>
-        <dependency>
+             use the same version as your Camel core version 
+        </dependency>-->
+        <!--        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-script-starter</artifactId>
             <version>3.0.0-M2</version>
-            <!-- use the same version as your Camel core version -->
+             use the same version as your Camel core version 
+        </dependency>-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.0-jre</version>
+            <type>jar</type>
         </dependency>
-  
     </dependencies>
     <build>
-        <plugins>      
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>appengine-maven-plugin</artifactId>
-                <version>2.2.0</version> 
-                <configuration>
-                    <deploy.projectId>miodigy</deploy.projectId>
-                    <deploy.version>1.0-SNAPSHOT</deploy.version>
-
-                </configuration>
-            
-            </plugin>  
+        <plugins>                   
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <outputDirectory>target</outputDirectory>
                     <arguments>
                         <argument>--spring.profiles.active=dev</argument>
                     </arguments>
@@ -136,13 +132,6 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>target/deploy</outputDirectory>
-                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.springframework.cloud</groupId>
@@ -150,7 +139,66 @@
                         <version>3.0.4.RELEASE</version>
                     </dependency>
                 </dependencies>
-            </plugin>  
+            </plugin>
+              
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <overWriteReleases>false</overWriteReleases>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/libs</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/deployment</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>${project.build.finalName}.jar</include>
+                                        <include>libs/**</include>
+                                    </includes>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>2.4.4</version>
+                <configuration>
+                    <deploy.projectId>miodigy</deploy.projectId>
+                    <deploy.version>1.0-SNAPSHOT</deploy.version>
+                    <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
+                    <cloudSdkHome>/usr/foo/path/to/cloudsdk</cloudSdkHome>
+                    <artifact>miodigy.jar</artifact>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.3.7.v20160115</version>
+            </plugin>
         </plugins>
         <finalName>${project.name}</finalName>
     </build>
