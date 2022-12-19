@@ -3,8 +3,9 @@
               "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 
 <svg xmlns="http://www.w3.org/2000/svg"
-     width="500px" height="100px"
-     viewBox="0 0 500 100">
+     width="1300px" height="400px"
+     style="margin-top: -150px;"
+     viewBox="0 0 1300 400">
   <path id="Zaznaczenie #3"
         fill="none" stroke="black" stroke-width="1"
         d="M 177.00,203.00
