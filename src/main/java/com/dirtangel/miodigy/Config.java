@@ -78,11 +78,12 @@ public class Config extends WebMvcConfigurerAdapter implements WebMvcConfigurer,
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
-        registry.addResourceHandler("/static/**").addResourceLocations("/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
+
 
 //    @Bean
 //    public SpringTemplateEngine templateEngine() {
@@ -120,14 +121,14 @@ public class Config extends WebMvcConfigurerAdapter implements WebMvcConfigurer,
         return templateResolver;
     }
 
-    @Bean
-    @Scope("prototype")
-    public ThymeleafView mainView() {
-        ThymeleafView view = new ThymeleafView("main"); // templateName = 'main'
-        view.setStaticVariables(
-                Collections.singletonMap("footer", "The ACME Fruit Company"));
-        return view;
-    }
+//    @Bean
+//    @Scope("prototype")
+//    public ThymeleafView mainView() {
+//        ThymeleafView view = new ThymeleafView("main"); // templateName = 'main'
+//        view.setStaticVariables(
+//                Collections.singletonMap("footer", "The ACME Fruit Company"));
+//        return view;
+//    }
 
 //    @Bean(destroyMethod = "")
 //@ConditionalOnMissingBean(CamelContext.class)
